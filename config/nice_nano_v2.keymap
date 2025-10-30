@@ -7,10 +7,10 @@
 
         default_layer {
             bindings = <
-                &macro C(LC(C))     // Copy
-                &macro C(LC(V))     // Paste
-                &macro C(LS(LCTL))  // Ctrl+Shift (раскладка)
-                &mouse_btn middle   // Middle click
+                &macro_tap C(LC(C))
+                &macro_tap C(LC(V))
+                &macro_tap C(LS(LCTL))
+                &mouse_btn middle
             >;
         };
     };
