@@ -1,6 +1,19 @@
+#include <dt-bindings/zmk/matrix_transform.h>
+
 / {
+    // Тривиальный transform для 4 кнопок (1 строка, 4 столбца)
+    default_transform: keymap_transform {
+        compatible = "zmk,matrix-transform";
+        rows = <1>;
+        columns = <4>;
+        map = <
+            RC(0,0) RC(0,1) RC(0,2) RC(0,3)
+        >;
+    };
+
     chosen {
         zmk,kscan = &kscan0;
+        zmk,physical-layout = &physical_layout0;
     };
 
     kscan0: kscan {
@@ -9,10 +22,10 @@
         status = "okay";
 
         input-gpios
-            = <&gpio0  9 GPIO_ACTIVE_LOW GPIO_PULL_UP>,  // D10 = P0.09
-              <&gpio0 10 GPIO_ACTIVE_LOW GPIO_PULL_UP>,  // D16 = P0.10
-              <&gpio1 11 GPIO_ACTIVE_LOW GPIO_PULL_UP>,  // D14 = P1.11
-              <&gpio1 13 GPIO_ACTIVE_LOW GPIO_PULL_UP>;  // D15 = P1.13
+            = <&gpio0  9 GPIO_ACTIVE_LOW GPIO_PULL_UP>,  // D10
+              <&gpio0 10 GPIO_ACTIVE_LOW GPIO_PULL_UP>,  // D16
+              <&gpio1 11 GPIO_ACTIVE_LOW GPIO_PULL_UP>,  // D14
+              <&gpio1 13 GPIO_ACTIVE_LOW GPIO_PULL_UP>;  // D15
 
         debounce-press-ms = <10>;
         debounce-release-ms = <10>;
@@ -23,9 +36,6 @@
         compatible = "zmk,physical-layout";
         display-name = "Macropad";
         kscan = <&kscan0>;
-    };
-
-    chosen {
-        zmk,physical-layout = &physical_layout0;
+        transform = <&default_transform>;  // ← ОБЯЗАТЕЛЬНО
     };
 };
