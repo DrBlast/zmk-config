@@ -1,0 +1,31 @@
+/ {
+    chosen {
+        zmk,kscan = &kscan0;
+    };
+
+    kscan0: kscan {
+        compatible = "zmk,kscan-gpio";
+        label = "KSCAN";
+        status = "okay";
+
+        input-gpios
+            = <&gpio0  9 GPIO_ACTIVE_LOW GPIO_PULL_UP>,  // D10 = P0.09
+              <&gpio0 10 GPIO_ACTIVE_LOW GPIO_PULL_UP>,  // D16 = P0.10
+              <&gpio1 11 GPIO_ACTIVE_LOW GPIO_PULL_UP>,  // D14 = P1.11
+              <&gpio1 13 GPIO_ACTIVE_LOW GPIO_PULL_UP>;  // D15 = P1.13
+
+        debounce-press-ms = <10>;
+        debounce-release-ms = <10>;
+        poll-interval-ms = <20>;
+    };
+
+    physical_layout0: physical_layout_0 {
+        compatible = "zmk,physical-layout";
+        display-name = "Macropad";
+        kscan = <&kscan0>;
+    };
+
+    chosen {
+        zmk,physical-layout = &physical_layout0;
+    };
+};

@@ -1,0 +1,17 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            bindings = <
+                &macro C(LC(C))     // Copy
+                &macro C(LC(V))     // Paste
+                &macro C(LS(LCTL))  // Ctrl+Shift (раскладка)
+                &mouse_btn middle   // Middle click
+            >;
+        };
+    };
+};
