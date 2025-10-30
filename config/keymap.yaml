@@ -1,0 +1,8 @@
+keymap:
+  - name: DEFAULT
+    layers:
+      - - macro-tap: [C(LC(C))]
+        - macro-tap: [C(LC(V))]
+        - macro-tap: [C(LS(LCTL))]
+        - mouse-btn:
+            btn: middle
