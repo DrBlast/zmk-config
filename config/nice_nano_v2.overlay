@@ -39,7 +39,10 @@
         compatible = "zmk,keymap";
         default_layer {
             bindings = <
-                &kp A &kp B &kp C &kp D
+                &mkp MB3    // middle click
+                &kp LC(C)   // ctrl+c
+                &kp LC(V)   // ctrl+v
+                &kp LS(LC)  // ctrl+shift
             >;
         };
     };
