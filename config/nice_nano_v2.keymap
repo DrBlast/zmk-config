@@ -1,13 +1,16 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+
 / {
     keymap {
         compatible = "zmk,keymap";
 
         default_layer {
             bindings = <
-                &kp C(C)     /* Copy (Ctrl+C) */
-                &kp C(V)     /* Paste (Ctrl+V) */
-                &kp C(SHIFT) /* Ctrl+Shift */
-                &mkp MB2     /* Middle mouse button */
+                &macro_tap C(LCTL KC_C)
+                &macro_tap C(LCTL KC_V)
+                &macro_tap C(LCTL LSH)
+                &mouse_btn middle
             >;
         };
     };
