@@ -9,15 +9,11 @@
             compatible = "zmk,behavior-momentary-layer";
             #binding-cells = <1>;
         };
-        ctrl_shift: behavior_macro_control_shift {
-            compatible = "zmk,behavior-macro";
+        ctrl_shift: behavior_mod_morph {
+            compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
-            bindings
-                = <&macro_press &kp LCTRL>
-                , <&macro_press &kp LSHFT>
-                , <&macro_pause_for_release>
-                , <&macro_release &kp LSHFT>
-                , <&macro_release &kp LCTRL>;
+            bindings = <&kp LCTRL>, <&kp LSHFT>;
+            mods = <(MOD_LCTL|MOD_LSFT)>;
         };
     };
 
@@ -39,10 +35,10 @@
         compatible = "zmk,kscan-gpio-direct";
         label = "KSCAN";
         input-gpios
-            = <&gpio0  9 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
-            , <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
-            , <&gpio1 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
-            , <&gpio1 13 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            = <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // кнопка 1 → MB3
+            , <&gpio1 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // кнопка 2 → LC(C)
+            , <&gpio0  9 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // кнопка 3 → LC(V)
+            , <&gpio1 13 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // кнопка 4 → ctrl_shift
             ;
     };
 
