@@ -9,7 +9,6 @@
             compatible = "zmk,behavior-momentary-layer";
             #binding-cells = <1>;
         };
-
         ctrl_shift: behavior_macro_control_shift {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -21,54 +20,39 @@
                        <&macro_release &kp LCTRL>;
         };
     };
-
     chosen {
         zmk,kscan = &kscan0;
         zmk,matrix_transform = &default_transform;
-        zmk,battery = &vbatt;           // Мониторинг батареи
-        zmk,ext-power = &extpower;      // Используем встроенное поведение!
+        zmk,battery = &vbatt;  // ← ДОБАВЛЕНО
     };
-
     default_transform: keymap_transform {
         compatible = "zmk,matrix-transform";
         rows = <1>;
         columns = <4>;
-        map = <
-            RC(0,0) RC(0,1) RC(0,2) RC(0,3)
-        >;
+        map = <RC(0,0) RC(0,1) RC(0,2) RC(0,3)>;
     };
-
     kscan0: kscan {
         compatible = "zmk,kscan-gpio-direct";
         label = "KSCAN";
-        input-gpios = <&gpio1 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>, // Ctrl+Shift
-                      <&gpio0 9 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,  // Ctrl+V
-                      <&gpio1 13 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>, // Ctrl+C
-                      <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // MB3
+        input-gpios = <&gpio1 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,
+                      <&gpio0 9 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,
+                      <&gpio1 13 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,
+                      <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
-
-    // Настройка делителя напряжения для LiPo 300mAh
-    vbatt: vbatt {
+    vbatt: vbatt {  // ← ДОБАВЛЕН БЛОК BATTERY
         compatible = "zmk,battery-voltage-divider";
         label = "VBATT";
-        io-channels = <&adc 2>;                // ADC канал 2 (P0.04)
-        output-ohms = <2000000>;               // Верхний резистор 2 МОм
-        full-ohms = <(2000000 + 820000)>;      // Делитель 2.82 МОм (на Nice!Nano)
+        io-channels = <&adc 2>;
+        output-ohms = <2000000>;
+        full-ohms = <(2000000 + 820000)>;
     };
-
-    // ВАЖНО: НЕ определяем ext-power здесь! Он уже есть в ZMK.
-    // Просто указываем в chosen, что используем его
-
     keymap {
         compatible = "zmk,keymap";
-
         default_layer {
-            bindings = <
-                &mkp MB3        // middle click
-                &kp LC(C)       // ctrl+c
-                &kp LC(V)       // ctrl+v
-                &ctrl_shift     // ctrl+shift макрос
-            >;
+            bindings = <&mkp MB3
+                        &kp LC(C)
+                        &kp LC(V)
+                        &ctrl_shift>;
         };
     };
 };
