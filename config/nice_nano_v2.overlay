@@ -40,14 +40,13 @@
     };
     vbatt: vbatt {
         compatible = "zmk,battery-voltage-divider";
-        label = "VBATT";
         io-channels = <&adc 2>;
         output-ohms = <2000000>;
-        full-ohms = <2820000>; // 2M + 820k
+        full-ohms = <2820000>; // 2M + 820k = 2,820,000
 
-        // НОРМАЛЬНЫЕ ГРАНИЦЫ LiPo:
-        zmk,battery-min-mv = <3300>;   // разряжен
-        zmk,battery-max-mv = <4200>;   // полностью заряжен
+        battery-min-millivolt = <3300>;   // разряжен (3.3V)
+        battery-max-millivolt = <4200>;   // полностью заряжен (4.2V)
+
     };
     keymap {
         compatible = "zmk,keymap";
