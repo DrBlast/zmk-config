@@ -38,13 +38,7 @@
                       <&gpio1 13 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,
                       <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
-    vbatt: vbatt {
-        compatible = "zmk,battery-voltage-divider";
-        io-channels = <&adc 2>;
-        output-ohms = <2000000>;
-        full-ohms = <2820000>; // 2M + 820k = 2,820,000
 
-    };
     keymap {
         compatible = "zmk,keymap";
         default_layer {
