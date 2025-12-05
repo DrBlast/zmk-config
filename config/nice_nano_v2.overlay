@@ -9,15 +9,14 @@
             compatible = "zmk,behavior-momentary-layer";
             #binding-cells = <1>;
         };
-        ctrl_shift: behavior_macro_control_shift {
+        ctrl_shift_simultaneous: behavior_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_press &kp LCTRL>,
-                       <&macro_wait_time 50>,
-                       <&macro_press &kp LSHFT>,
-                       <&macro_pause_for_release>,
-                       <&macro_release &kp LSHFT>,
-                       <&macro_release &kp LCTRL>;
+            bindings = <
+                &macro_press &kp LCTRL &kp LSHFT
+                &macro_pause_for_release
+                &macro_release &kp LSHFT &kp LCTRL
+            >;
         };
     };
     chosen {
@@ -39,12 +38,16 @@
                       <&gpio1 13 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>,
                       <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
-    vbatt: vbatt {  // ← ДОБАВЛЕН БЛОК BATTERY
+    vbatt: vbatt {
         compatible = "zmk,battery-voltage-divider";
         label = "VBATT";
         io-channels = <&adc 2>;
         output-ohms = <2000000>;
-        full-ohms = <(2000000 + 820000)>;
+        full-ohms = <2820000>; // 2M + 820k
+
+        // НОРМАЛЬНЫЕ ГРАНИЦЫ LiPo:
+        zmk,battery-min-mv = <3300>;   // разряжен
+        zmk,battery-max-mv = <4200>;   // полностью заряжен
     };
     keymap {
         compatible = "zmk,keymap";
@@ -52,7 +55,7 @@
             bindings = <&mkp MB3
                         &kp LC(C)
                         &kp LC(V)
-                        &ctrl_shift>;
+                        &ctrl_shift_simultaneous>;
         };
     };
 };
